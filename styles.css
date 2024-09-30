@@ -1,0 +1,26 @@
+
+div1{
+    background-color: rgb(245, 240, 230);
+    width:  100%;
+    /*display: inline-block;*/
+    display: inline-block;
+}
+
+h2{
+    background-color: white;
+}
+
+p{
+    color: white;
+}
+
+div2{
+    background-image: url("https://www.ucsd.edu/_resources/img/bg-orbs-1.jpg");
+    width: 100%;
+    display: inline-block;
+}
+
+/*li {
+    display: menu;
+  }
+*/
