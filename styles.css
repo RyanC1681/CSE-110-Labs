@@ -1,13 +1,106 @@
 
+
+  #topHeader{
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    width: 100%;
+/*height: auto;*/
+    padding: 5px;
+    margin: 0 auto;
+    justify-content: space-between;
+    z-index: 999;
+    background: #eee;
+}
+
+  /*.topLogo {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }*/
+
+  .main {
+    padding: 30px;
+    margin-top: 50px;
+    height: 1500px; /* enable scrolling */
+  }
+  .topNav {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    /*top: 0;*/
+    width: 100%;
+  }
+  
+  .topNav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 14px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 28px;
+  }
+  
+  .topNav a:hover {
+    background: #182b49;
+    color: white;
+  }
+  img.sticky
+  {
+    /*display: block;*/
+    /*display: inline-block;*/
+    position: sticky;
+    top:0;
+    width: 100%;
+    max-width:100% ;
+    max-height:100%;
+  }
+
+  table {
+    /*width: 100%;*/
+    /*border: 1px solid #ddd;*/
+    position: sticky;
+    top: 0;
+    background-color: white;
+    /*display: inline-block;*/
+    border-spacing:0; /* Remove cell spacing */ 
+  border-collapse: collapse;
+    
+  }
+  
+  td {
+    padding: 0px;
+  }
+  
 div1{
+   /* top: 100;*/
     background-color: rgb(245, 240, 230);
-    width:  100%;
+    width: 100%;
     /*display: inline-block;*/
     display: inline-block;
 }
 
+#P1{
+  color: black;
+}
+
+#B1 {
+    /*background-color: black;*/
+    color: white;
+    /*padding: 40px;*/
+    text-align: left;
+  }
+  /*</style>*/
+
 h2{
-    background-color: white;
+    /*background-color: black;*/
+    color: white;
 }
 
 p{
@@ -15,11 +108,67 @@ p{
 }
 
 div2{
-    background-image: url("https://www.ucsd.edu/_resources/img/bg-orbs-1.jpg");
+    background-image: url('https://www.ucsd.edu/_resources/img/bg-orbs-1.jpg');
     width: 100%;
     display: inline-block;
 }
+/*
+#C1{
+    background-color:rgb(245, 240, 230);
+    
+}
 
+*/
+div3{
+    /*background-color: #182b49;*/
+    width: 100%;
+    display: inline-block;
+    background-color:rgb(245, 240, 230);
+}
+
+/*.column-container{
+    display: inline-block;
+    background-color: #182b49;
+    color: white;
+    max-height: 500;
+}*/
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.grid-item {
+    background-color: #182b49;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    max-height: 500px;
+    overflow-y: scroll;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Responsive layout for smaller screens */
+@media (max-width: 1024px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screen */
+      
+    }
+  }
+  
+  @media (max-width: 800px) {
+    .grid-container {
+      grid-template-columns: 1fr; /* 1 column for small screen */
+    }
+
+    .topNav{
+      /*visibility: collapse;*/
+      display: none;
+    }
+    
+  }
 /*li {
     display: menu;
   }
