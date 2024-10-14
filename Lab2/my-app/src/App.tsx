@@ -4,69 +4,159 @@ import './App.css';
 
 import { Label, Note } from "./types"; // Import the Label type from the appropriate module
 import { dummyNotesList } from "./constants"; // Import the dummyNotesList from the appropriate module
-import './hooksExercise.tsx';
+//import './hooksExercise.tsx';
+//import ToggleTheme, { ClickCounter } from "./hooksExercise"; // M add export ClickCounter and file path
+//import { themes } from './themeContext';
+import { ThemeContext, themes } from "./ThemeContext";
+//import LightSwitch from "./hooksExercise";
+//import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import ToggleTheme from "./hooksExercise";
 
 function App() {
- return (
-   <div className='app-container'>
-    
-    <div className="notes-grid">
-       {dummyNotesList.map((note) => (
-         <div
-           key={note.id}
-           className="note-item">
-           <div className="notes-header">
-             <button>x</button>
-           </div>
-           <h2> {note.title} </h2>
-           <p> {note.content} </p>
-           <p> {note.label} </p>
-         </div>
-       ))}
-     </div>
 
-    {/*
-     <div className="note-individual">
-       <button>
-         x
-       </button>
-       <h2> 1st Note Title </h2>
-       <p> 1st Note Content </p>
-       <p> 1st Note Label </p>
-       
-     </div> 
-     */}
+const [favorites, setFavorites] = useState<Note[]>([]);
+// update for create function
+const [notes, setNotes] = useState(dummyNotesList);
+const initialNote = {
+id: -1,
+title: "",
+content: "",
+label: Label.other,
+};
+const [createNote, setCreateNote] = useState(initialNote);
+//const [selectedNote, setSelectedNote] = useState<Note>(initialNote);
+const [currentTheme, setCurrentTheme] = useState(themes.light);
 
-   </div>
+const createNoteHandler = (event: React.FormEvent) => {
+event.preventDefault();
+console.log("title: ", createNote.title);
+console.log("content: ", createNote.content);
+createNote.id = notes.length + 1;
+setNotes([createNote, ...notes]);
+setCreateNote(initialNote);
+};
 
+const removeNote = (note : Note) => {
+setNotes(notes.filter(noteTk => noteTk.id !== note.id));
+};
 
- );
+return (
+
+<ThemeContext.Provider value={currentTheme}>
+
+<div className='app-container'>
+
+<form className="note-form" onSubmit={createNoteHandler}>
+<div>
+<input
+placeholder="Note Title"
+onChange={(event) =>
+setCreateNote({ ...createNote, title: event.target.value })}
+required>
+</input>
+</div>
+
+<div>
+<textarea
+
+onChange={(event) =>
+setCreateNote({ ...createNote, content: event.target.value })}
+required>
+</textarea>
+</div>
+
+<div>
+
+<select
+onChange={(event) =>
+setCreateNote({ ...createNote, label: event.target.value as Label })}
+required>
+<option value={Label.personal}>Personal</option>
+<option value={Label.study}>Study</option>
+<option value={Label.work}>Work</option>
+<option value={Label.other}>Other</option>
+</select>
+</div>
+
+<div><button type="submit">Create Note</button></div>
+
+<div>
+<h1>List of favorites:</h1>
+{favorites.map((note) => (
+<div key={note.id}>{note.title}</div>
+))}
+</div>
+
+</form>
+
+<div className="notes-grid">
+{notes.map((note) => (
+<div
+key={note.id}
+
+className="note-item"
+
+style={{
+background: currentTheme.background,
+color: currentTheme.foreground,
+}}>
+<div className="notes-header">
+<button onClick={() => {
+if (favorites.includes(note)) {
+const newFavorites = [...favorites];
+newFavorites.splice(newFavorites.indexOf(note), 1);
+setFavorites(newFavorites);
+} else {
+setFavorites([...favorites, note]);
 }
+}}>
+{favorites.includes(note) ? (
+<div>🧡</div>
+) : (
+<div style={{
+color: currentTheme.foreground,
+}}>
+🤍
+</div>
+)}</button>
 
+<button onClick={() => removeNote(note)}>x</button>
+</div>
 
+<h2 contentEditable="true"> {note.title} </h2>
+<p contentEditable="true"> {note.content } </p>
+<select
+value={note.label}
 
-export default App;
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+const newLabel = event.target.value as Label;
+const editNotes = notes.map(n => {
+if (n.id == note.id) {
+return {...n, label : newLabel};
 }
+else {
+return n;
+}
+});
+setNotes(editNotes);
+}}
+>
+<option value={Label.personal}>Personal</option>
+<option value={Label.study}>Study</option>
+<option value={Label.work}>Work</option>
+<option value={Label.other}>Other</option>
+</select>
 
+</div>
+))}
+</div>
+
+<ToggleTheme setCurrentTheme={setCurrentTheme} />
+
+</div>
+</ThemeContext.Provider>
+
+);
+}
 export default App;
-*/
