@@ -65,7 +65,7 @@ export const StickyNotes = () => {
 
     <div>
     <textarea
-
+placeholder="Note Content"
 onChange={(event) =>
 setCreateNote({ ...createNote, content: event.target.value })}
 required>
@@ -127,7 +127,7 @@ color: currentTheme.foreground,
 </div>
 )}</button>
 
-<button onClick={() => removeNote(note)}>x</button>
+<button className="removeButton" onClick={() => removeNote(note)}>x</button>
 </div>
 
 <h2 contentEditable="true"> {note.title} </h2>
